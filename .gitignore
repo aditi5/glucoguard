@@ -1,0 +1,4 @@
+/web/engine.wasm
+/web/wasm_exec.js
+/glucoguard
+*.test
