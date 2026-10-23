@@ -18,8 +18,15 @@ self.addEventListener("activate", (e) => {
 // fall back to the cache when offline.
 self.addEventListener("fetch", (e) => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
+  // cache: "no-cache" revalidates with the server instead of trusting the
+  // browser's HTTP cache (GitHub Pages sets max-age=600), so a safety-rule
+  // update reaches phones on the next load. Navigation requests can't be
+  // re-constructed with an init, so fetch those by URL.
+  const req = e.request.mode === "navigate"
+    ? fetch(e.request.url, { cache: "no-cache", credentials: "same-origin" })
+    : fetch(e.request, { cache: "no-cache" });
   e.respondWith(
-    fetch(e.request)
+    req
       .then((res) => {
         if (res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(e.request, copy)); }
         return res;
