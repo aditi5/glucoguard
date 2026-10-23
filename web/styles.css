@@ -40,6 +40,7 @@ body {
   padding-bottom: calc(var(--tab-h) + env(safe-area-inset-bottom));
 }
 button, input, select { font: inherit; color: inherit; }
+a { color: var(--ink); text-underline-offset: 3px; }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 
 .topbar {
@@ -199,6 +200,7 @@ legend small { font-weight: 400; color: var(--ink-soft); }
   display: flex; background: var(--surface); border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
 }
+.tabs[hidden] { display: none; }
 .tabs button {
   flex: 1; height: var(--tab-h); border: 0; background: transparent; cursor: pointer;
   font-size: 16px; font-weight: 500; color: var(--ink-soft); position: relative;
